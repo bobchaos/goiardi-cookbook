@@ -24,18 +24,18 @@ Installs a precompiled binary from github.com, or a custom url. Full syntax with
 ```
 goiardi_install 'goiardi' do
   instance_name resource_name # Defaults to the resource name, used to generate paths and sub-resources
-  instance_path '/usr/sbin' # Where to put the binary. /usr/sbin is FHS compliant, but /usr/local/sbin could be argued as better.
-  version 'latest' # must be either 'latest' or a git tag. Ignored if bin_url is set explicitely
-  bin_url nil # Left nil, the url will be autoresolved based on `version`
-  user resource_name # File and service owner
-  group resource_name # File group
-  private_key_path nil # Path to the signing private key. Left `nil`, one will be generated automatically if `use-shovey` is set in the goiardi configuration
+  instance_path '/usr/sbin'   # Where to put the binary. /usr/sbin is FHS compliant, but /usr/local/sbin could be argued as better.
+  version 'latest'            # must be either 'latest' or a git tag. Ignored if bin_url is set explicitely
+  bin_url nil                 # Left nil, the url will be autoresolved based on `version`
+  user resource_name          # File and service owner
+  group resource_name         # File group
+  private_key_path nil        # Path to the signing private key. Left `nil`, one will be generated automatically if `use-shovey` is set in the goiardi configuration
   manage_systemd_service true # Set to false if you're not on systemd or prefer to write your own unit
-  manage_conf true # Set to false if you're supplying your own configuration file. You'll need to set `options` accordingly
-  conf {} # Configuration entries to merge/override the defaults. Use `nil` to negate a default entirely
-  options nil # CLI flags used in the service definition. Left nil, will default to `-c /path/to/conf`
-  serf_unit_name 'serf' # Will be added as `name.service` to the systemd unit's "After" and "Requires". Ignored if `manage_systemd_service` is `false`
-  action :create # Supports :create, :remove
+  manage_conf true            # Set to false if you're supplying your own configuration file. You'll need to set `options` accordingly
+  conf {}                     # Configuration entries to merge/override the defaults. Use `nil` to negate a default entirely
+  options nil                 # CLI flags used in the service definition. Left nil, will default to `-c /path/to/conf`
+  serf_unit_name 'serf'       # Will be added as `name.service` to the systemd unit's "After" and "Requires". Ignored if `manage_systemd_service` is `false`
+  action :create              # Supports :create, :remove
 end
 ```
 
@@ -52,18 +52,18 @@ Installs a precompiled binary of Schob, the Goiardi Shovey job client. Full synt
 ```
 goiardi_schob 'schob' do
   instance_name resource_name # Defaults to the resource name, used to generate paths and sub-resources
-  instance_path '/usr/sbin' # Where to put the binary. /usr/sbin is FHS compliant, but /usr/local/sbin could be argued as better.
-  version 'latest' # must be either 'latest' or a git tag. Ignored if bin_url is set explicitely
-  bin_url nil # Left nil, the url will be autoresolved based on `version`
-  user resource_name # Asset owner, defaults to the resource's name
-  group resource_name # Asset group, defaults to resource's name
-  conf {} # Configuration entries to merge/override the defaults. USe `nil` to negate a default entirely
+  instance_path '/usr/sbin'   # Where to put the binary. /usr/sbin is FHS compliant, but /usr/local/sbin could be argued as better.
+  version 'latest'            # must be either 'latest' or a git tag. Ignored if bin_url is set explicitely
+  bin_url nil                 # Left nil, the url will be autoresolved based on `version`
+  user resource_name          # Asset owner, defaults to the resource's name
+  group resource_name         # Asset group, defaults to resource's name
+  conf {}                     # Configuration entries to merge/override the defaults. USe `nil` to negate a default entirely
   whitelist { whitelist: { 'chef-client': 'chef-client', 'cinc-client': 'cinc-client' } } # See below
-  server_public_key nil # Required property, the contents of the Shovey server public key.
-  manage_conf true # Set to `false` if you prefer to manage the configuration file through other means
+  server_public_key nil       # Required property, the contents of the Shovey server public key.
+  manage_conf true            # Set to `false` if you prefer to manage the configuration file through other means
   manage_systemd_service true # Set to false if you're not n systemd or want to handle it through other means
-  options nil # A string of CLI options for Schob. Defaults to reading everything from the configuration file
-  serf_unit_name 'serf' # Will be added as `name.service` to the systemd unit's "After" and "Requires". Ignored if `manage_systemd_service` is `false`
+  options nil                 # A string of CLI options for Schob. Defaults to reading everything from the configuration file
+  serf_unit_name 'serf'       # Will be added as `name.service` to the systemd unit's "After" and "Requires". Ignored if `manage_systemd_service` is `false`
 end
 ```
 
@@ -81,23 +81,23 @@ This one is out-of-scope, but provided for convenience. It installs Hashicorp Se
 
 ```
 goiardi_serf 'serf' do
-  instance_name resource_name # Defaults to the resource name
-  instance_path '/usr/sbin' # Where to put the binary. /usr/sbin is FHS compliant, but /usr/local/sbin could be argued as better.
-  version '0.8.2' # Ignored if bin_url is set explicitely
-  archive_url nil # Left nil, the url will be autoresolved based on `version`
-  archive_dir nil # Where to put the zip file. If left nil, will go to the serf user's home
-  user resource_name # Asset owner, defaults to the resource's name
-  group resource_name # Asset group, defaults to resource's name
-  manage_systemd_service false # Set to false if you're not n systemd or want to handle it through other means
-  conf {} # Configuration entries to merge/override the defaults. USe `nil` to negate a default entirely
-  options nil # A string of CLI options for Schob. Defaults to reading everything from the configuration
+  instance_name resource_name  # Defaults to the resource name
+  instance_path '/usr/sbin'    # Where to put the binary. /usr/sbin is FHS compliant, but /usr/local/sbin could be argued as better.
+  version '0.8.2'              # Ignored if bin_url is set explicitely
+  archive_url nil              # Left nil, the url will be autoresolved based on `version`
+  archive_dir nil              # Where to put the zip file. If left nil, will go to the serf user's home
+  user resource_name           # Asset owner, defaults to the resource's name
+  group resource_name          # Asset group, defaults to resource's name
+  manage_systemd_service false # Set to false if you're not on systemd or want to handle it through other means
+  conf {}                      # Configuration entries to merge/override the defaults. USe `nil` to negate a default entirely
+  options nil                  # A string of CLI options for Serf. Defaults to reading everything from the configuration
  file
 end
 ```
 
 `conf` is a hash of [Serf configuration directives](https://www.serf.io/docs/agent/options.html) that is merged in with some sane defaults, intended to create an installation tailored to Goiardi Shovey jobs. Default directives can be overriden with either a new value or `nil` to have them ommited entirely.
 
-`options` is a string of [Serf CLI options](https://www.serf.io/docs/agent/options.html) to add to the `systemd_unit`'s `ExecStart`. Left `nil`, it will read from the generated configuration file. Only applicable if `server` is true.
+`options` is a string of [Serf CLI options](https://www.serf.io/docs/agent/options.html) to add to the `systemd_unit`'s `ExecStart`. Left `nil`, it will read from the generated configuration file.
 
 ### Important notes on key handling
 
@@ -131,11 +131,12 @@ ze_conf = {
     'postgresql-port': 5432,
     'postgresql-dbname': 'goiardi',
     'postgresql-ssl=mode': 'enable'
+    # Activate Shovey. `sign-priv-key` should be automatically resolved so we omit it
     'use-serf': true,
     'use-shovey': true,
   }
 
-goiardi_install 'goiradi' do
+goiardi_install 'goiardi' do
   version 'v.0.11.10'
   user 'my_custom_system_user'
   group 'my_custom_system_group'
@@ -158,3 +159,11 @@ goiardi_schob 'schob' do
   server_public_key { IO.read('/etc/shovey.pub') }
 end
 ```
+
+## Contributing
+
+See CONTRIBUTING.md
+
+## License
+
+[Apache-2.0](https://opensource.org/licenses/Apache-2.0)
