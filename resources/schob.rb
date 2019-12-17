@@ -151,7 +151,7 @@ action :remove do
   end
 end
 
-action_class do  
+action_class do
   require 'chef/dist'
   # Generic helpers, those that do not rely directly on resource properties or ohai data
   include Goiardi::Helpers

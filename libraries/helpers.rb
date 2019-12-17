@@ -4,13 +4,13 @@ module Goiardi
 
     def release_by_platform_url(repo, platform, arch, version)
       asset = release_data(repo, version)['assets'].detect { |a| a['name'] == release_bin_name(repo, platform, arch, version) }
-      raise "Failed to locate asset" unless asset
+      raise 'Failed to locate asset' unless asset
       asset['browser_download_url']
     end
 
     def clean_directories(dirs, name)
       # crude but effective method to prevent chowning/deleting system directories
-      dirs.reject { |d| ! d.chomp('/').match(/#{name}/) }
+      dirs.reject { |d| !d.chomp('/').match(/#{name}/) }
     end
 
     def system_arch(arch)

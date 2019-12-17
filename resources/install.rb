@@ -49,7 +49,7 @@ action :install do
   end
 
   # If the user is providing his own private key, chown it to the correct user
-  if merged_conf.has_key?(:'use-shovey')
+  if merged_conf.key?(:'use-shovey')
     if new_resource.private_key_path
       file new_resource.private_key_path do
         user new_resource.user
@@ -188,12 +188,10 @@ action_class do
       'log-event-keep': 1000,
     }
     base[:'sign-priv-key'] = if new_resource.private_key_path
-                              new_resource.private_key_path
-                            elsif new_resource.conf.to_h.has_key?('use-shovey')
-                              "#{conf_dir}/#{new_resource.instance_name}.pem"
-                            else
-                              nil
-                            end
+                               new_resource.private_key_path
+                             elsif new_resource.conf.to_h.key?('use-shovey')
+                               "#{conf_dir}/#{new_resource.instance_name}.pem"
+                             end
     # Note the use of to_h, it ensures that if a user passes attributes in directly as `conf`
     # that it will be treated as a plain hash instead of a Chef::ImmutableMash
     base.merge(new_resource.conf.to_h).compact

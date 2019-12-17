@@ -1,8 +1,8 @@
 # Installs Hashicorp Serf, technically out of scope for a Goiardi cookbook
 # but is provided for convenience when installing Shovey. If you plan to
 # use Serf for other things than Goiradi Shovey jobs I recommend installing
-# it from a different cookbook. 
-property :instance_name, String, name_property:true
+# it from a different cookbook.
+property :instance_name, String, name_property: true
 property :instance_path, String, default: '/usr/sbin'
 property :version, String, default: '0.8.2'
 property :archive_url, [String, NilClass], default: nil
@@ -121,7 +121,6 @@ action :remove do
   end
 end
 
-
 action_class do
   require 'chef/dist'
   include Goiardi::Helpers
@@ -163,7 +162,7 @@ action_class do
   end
 
   def merged_conf
-    conf = {
+    {
       node_name: node['fqdn'],
       log_level: 'warn',
     }.merge(new_resource.conf.to_h).compact

@@ -43,8 +43,8 @@ describe file('/etc/goiardi/goiardi.conf') do
   # Verify a value added to the defaults in the test recipe is correctly merged
   its('content') { should match /purge-sandboxes-after = "720h"/ }
   # verify required values for Shovey are present
-  its('content') { should match %r{use-serf = true} }
-  its('content') { should match %r{use-shovey = true} }
+  its('content') { should match /use-serf = true/ }
+  its('content') { should match /use-shovey = true/ }
 end
 
 describe file('/var/log/goiardi/goiardi.log') do
@@ -129,7 +129,7 @@ describe file('/etc/serf/serf.json') do
   its('owner') { should eq 'serf' }
   its('group') { should eq 'serf' }
   its('mode') { should cmp '0644' }
-  its('content') { should match %r{log_level} }
+  its('content') { should match /log_level/ }
 end
 
 ['/var/log/schob', '/etc/schob'].each do |dir|
@@ -158,8 +158,8 @@ describe file('/etc/schob/schob_whitelist.json') do
   it { should exist }
   its('owner') { should eq 'schob' }
   its('group') { should eq 'schob' }
-  its('content') { should match %r{"chef-client": "chef-client"} }
-  its('content') { should match %r{"cinc-client": "cinc-client"} }
+  its('content') { should match /"chef-client": "chef-client"/ }
+  its('content') { should match /"cinc-client": "cinc-client"/ }
 end
 
 describe file('/etc/schob/shovey.pub') do
