@@ -1,0 +1,56 @@
+---
+driver:
+  name: ec2
+  block_device_mappings:
+    - device_name: /dev/sda1
+      ebs:
+        volume_size: 8
+        delete_on_termination: true
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+  chef_omnibus_url: https://omnitruck.cinc.sh/install.sh
+  chef_omnibus_root: /opt/cinc
+  lifecycle:
+    pre_converge:
+      - local: rm -f test/fixtures/policyfiles/*.lock.json
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+  - name: ubuntu-16.04
+  - name: ubuntu-18.04
+  - name: amazonlinux-2
+  - name: debian-8
+    driver:
+      block_device_mappings:
+      - device_name: /dev/xvda
+        ebs:
+          volume_size: 8
+          delete_on_termination: true
+
+  - name: debian-9
+    driver:
+      block_device_mappings:
+      - device_name: xvda
+        ebs:
+          volume_size: 8
+          delete_on_termination: true
+
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    provisioner:
+      policyfile: test/fixtures/policyfiles/default.rb
+
+  - name: remove
+    verifier:
+      inspec_tests:
+        - test/integration/remove
+    provisioner:
+      policyfile: test/fixtures/policyfiles/remove.rb

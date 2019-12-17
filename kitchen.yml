@@ -1,0 +1,40 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+  chef_omnibus_url: https://omnitruck.cinc.sh/install.sh
+  chef_omnibus_root: /opt/cinc
+  lifecycle:
+    pre_converge:
+      - local: rm -f test/fixtures/policyfiles/*.lock.json
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+  - name: ubuntu-16.04
+  - name: ubuntu-18.04
+  - name: debian-8
+  - name: debian-9
+  - name: amazonlinux-2
+    driver_config:
+      box: ywatase/amzn2
+
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    provisioner:
+      policyfile: test/fixtures/policyfiles/default.rb
+
+  - name: remove
+    verifier:
+      inspec_tests:
+        - test/integration/remove
+    provisioner:
+      policyfile: test/fixtures/policyfiles/remove.rb
