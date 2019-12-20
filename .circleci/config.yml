@@ -1,0 +1,62 @@
+---
+version: 2.1
+orbs:
+  kitchen: sous-chefs/kitchen@2
+lint_and_unit: &lint_and_unit
+  - lint-yaml
+  - lint-markdown
+workflows:
+  kitchen:
+    jobs:
+      - kitchen/yamllint:
+          name: lint-yaml
+      - kitchen/mdlint:
+          name: lint-markdown
+      - kitchen/dokken-single:
+          name: default-debian-8
+          suite: default-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: default-debian-9
+          suite: default-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: default-centos-7
+          suite: default-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: default-ubuntu-1604
+          suite: default-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: default-ubuntu-1804
+          suite: default-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: default-amazonlinux
+          suite: default-amazonlinux
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: remove-debian-8
+          suite: remove-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: remove-debian-9
+          suite: remove-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: remove-centos-7
+          suite: remove-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: remove-ubuntu-1604
+          suite: remove-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: remove-ubuntu-1804
+          suite: remove-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: remove-amazonlinux
+          suite: remove-amazonlinux
+          requires: *lint_and_unit
