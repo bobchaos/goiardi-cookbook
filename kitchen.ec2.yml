@@ -25,18 +25,18 @@ platforms:
   - name: debian-8
     driver:
       block_device_mappings:
-      - device_name: /dev/xvda
-        ebs:
-          volume_size: 8
-          delete_on_termination: true
+        - device_name: /dev/xvda
+          ebs:
+            volume_size: 8
+            delete_on_termination: true
 
   - name: debian-9
     driver:
       block_device_mappings:
-      - device_name: xvda
-        ebs:
-          volume_size: 8
-          delete_on_termination: true
+        - device_name: xvda
+          ebs:
+            volume_size: 8
+            delete_on_termination: true
 
 suites:
   - name: default
