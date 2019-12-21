@@ -51,9 +51,9 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: amazonlinux
+  - name: amazonlinux-2
     driver:
-      image: dokken/amazonlinux
+      image: dokken/amazonlinux-2
       pid_one_command: /sbin/init
 
 suites:
