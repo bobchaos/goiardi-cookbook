@@ -1,0 +1,7 @@
+# Chef doesn't enforce line length in cookbooks
+# So we don't check line length in code blocks
+rule 'MD013', :code_blocks => false
+
+# Bare URLs are common in code blocks
+# Unfortunately it must be disabled globally
+exclude_rule 'MD034'
