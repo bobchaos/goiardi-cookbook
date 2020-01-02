@@ -8,5 +8,5 @@ default_source :supermarket
 run_list 'test::remove'
 
 # Specify a custom source for a single cookbook:
-cookbook 'goiardi', path: '../../../'
+cookbook 'cinc-goiardi', path: '../../../'
 cookbook 'test', path: '../cookbooks/test'

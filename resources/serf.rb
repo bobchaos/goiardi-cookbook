@@ -14,6 +14,7 @@ property :conf, Hash, default: {}
 property :options, [String, NilClass], default: nil
 
 default_action :install
+provides :goiardi_serf
 
 action :install do
   group new_resource.group do
@@ -123,7 +124,7 @@ end
 
 action_class do
   require 'chef/dist'
-  include Goiardi::Helpers
+  include CincGoiardi::Helpers
 
   def serf_options
     return new_resource.options if new_resource.options

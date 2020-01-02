@@ -1,4 +1,4 @@
-# goiardi cookbook
+# cinc-goiardi cookbook
 
 This cookbook provides resources to install [goiardi](http://goiardi.gl/),
 [schob](https://github.com/ctdk/schob/) and a complementary
@@ -225,4 +225,4 @@ See CONTRIBUTING.md
 
 The Cinc project
 
-maintainers@cinc.io
+cookbooks@cinc.sh

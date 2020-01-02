@@ -15,6 +15,7 @@ property :manage_systemd_service, [TrueClass, FalseClass], default: true
 property :options, [String, NilClass], default: nil
 property :serf_unit_name, String, default: 'serf'
 
+provides :goiardi_schob
 default_action :install
 
 action :install do
@@ -86,7 +87,7 @@ action :install do
   if new_resource.manage_conf
     template "/etc/#{new_resource.instance_name}/#{new_resource.instance_name}.conf" do
       source 'schob.conf.erb'
-      cookbook 'goiardi'
+      cookbook 'cinc-goiardi'
       owner new_resource.user
       group new_resource.group
       mode '0644'
@@ -154,7 +155,7 @@ end
 action_class do
   require 'chef/dist'
   # Generic helpers, those that do not rely directly on resource properties or ohai data
-  include Goiardi::Helpers
+  include CincGoiardi::Helpers
 
   # Resource specific helper methods
   def schob_options

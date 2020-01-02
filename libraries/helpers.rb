@@ -1,4 +1,4 @@
-module Goiardi
+module CincGoiardi
   module Helpers
     require 'json'
 

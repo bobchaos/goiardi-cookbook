@@ -6,4 +6,4 @@ description 'Test resources of the goiardi cookbook'
 version '1.0.0'
 chef_version '>= 14.0'
 
-depends 'goiardi'
+depends 'cinc-goiardi'
